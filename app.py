@@ -31,7 +31,7 @@ def scrobble():
     conn = get_db()
     cur = conn.cursor()
     cur.execute('INSERT INTO tracks (path) VALUES (%s) ON CONFLICT DO NOTHING;', (p,))
-    cur.execute('INSERT INTO scrobbles (track) VALUES (SELECT pk FROM tracks WHERE path = %s);', (p,))
+    cur.execute('INSERT INTO scrobbles (track) VALUES ((SELECT pk FROM tracks WHERE path = %s));', (p,))
     conn.commit()
     cur.close()
     conn.close()

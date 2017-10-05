@@ -7,7 +7,7 @@ MUSIC_DIR = os.getenv('MUSIC_DIR', '/home/pi/Muzyka')
 MUSIC_EXTENSIONS = {'flac', 'wav', 'mp3', 'ogg', 'm4a', 'mp4'}
 
 def get_db():
-    conn = psycopg2.connect('dbname=holopsicon user=michcioperz')
+    conn = psycopg2.connect('dbname=holopsicon user=holopsicon')
     conn.set_client_encoding('UTF8')
     return conn
 

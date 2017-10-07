@@ -42,7 +42,7 @@ def new_random():
     conn = get_db()
     cur = conn.cursor()
     cur.execute("SELECT tracks.path, tracks.pk, tracks.title, tracks.artist, tracks.album, date_trunc('hour', NOW()-scrobbles.start_time) AS last_played FROM tracks LEFT OUTER JOIN scrobbles ON tracks.pk = scrobbles.track ORDER BY last_played DESC, RANDOM() LIMIT 1;")
-    ret = (lambda r: dict(path=r[0], pk=r[1], title=r[2], artist=r[3], album=r[4], last_played=r[5]))(cur.fetchone())
+    ret = (lambda r: dict(path=r[0], pk=r[1], title=r[2], artist=r[3], album=r[4], last_played=(r[5].total_seconds() if r[5] is not None else None)))(cur.fetchone())
     cur.close()
     conn.close()
     return jsonify(ret)
